@@ -54,7 +54,35 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <style id="fouc-fix">{`html { opacity: 0 !important; transition: opacity 0.25s ease-in; }`}</style>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var reveal = function() {
+                  document.documentElement.style.setProperty('opacity', '1', 'important');
+                  var style = document.getElementById('fouc-fix');
+                  if (style) {
+                    // Disable the stylesheet instead of removing the node to prevent React crash
+                    style.disabled = true;
+                  }
+                };
+
+                var check = function() {
+                  if (document.querySelector('style[data-amara="true"]')) {
+                    reveal();
+                  } else {
+                    requestAnimationFrame(check);
+                  }
+                };
+                
+                check();
+                setTimeout(reveal, 2000);
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         {children}
