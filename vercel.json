@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "outputDirectory": "dist/client",
+  "buildCommand": "node build-static.cjs",
+  "outputDirectory": "deploy",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/index.html"
     }
   ]
 }
