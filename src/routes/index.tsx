@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
+import { AMARA_STYLE, AMARA_BODY, AMARA_SCRIPT } from "@/amara-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,43 +33,24 @@ function Index() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Fetch the static HTML and inject body + scripts so all interactivity works.
-    let cancelled = false;
-    (async () => {
-      const res = await fetch("/amara.html");
-      const html = await res.text();
-      if (cancelled || !ref.current) return;
+    // Inject the page-specific stylesheet once.
+    const style = document.createElement("style");
+    style.setAttribute("data-amara", "true");
+    style.textContent = AMARA_STYLE;
+    document.head.appendChild(style);
 
-      const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
-      const bodyMatch = html.match(/<body>([\s\S]*?)<\/body>/);
-      const scriptMatches = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
-
-      // Inject styles
-      if (styleMatch) {
-        const style = document.createElement("style");
-        style.setAttribute("data-amara", "true");
-        style.textContent = styleMatch[1];
-        document.head.appendChild(style);
-      }
-
-      // Inject body content
-      if (bodyMatch) {
-        ref.current.innerHTML = bodyMatch[1];
-      }
-
-      // Run scripts
-      scriptMatches.forEach((m) => {
-        const s = document.createElement("script");
-        s.textContent = m[1];
-        document.body.appendChild(s);
-      });
-    })();
+    // Run the page's inline scripts (nav scrolling, intersection animations, etc.)
+    const script = document.createElement("script");
+    script.setAttribute("data-amara", "true");
+    script.textContent = AMARA_SCRIPT;
+    document.body.appendChild(script);
 
     return () => {
-      cancelled = true;
-      document.querySelectorAll('style[data-amara="true"]').forEach((n) => n.remove());
+      document
+        .querySelectorAll('style[data-amara="true"], script[data-amara="true"]')
+        .forEach((n) => n.remove());
     };
   }, []);
 
-  return <div ref={ref} />;
+  return <div ref={ref} dangerouslySetInnerHTML={{ __html: AMARA_BODY }} />;
 }
