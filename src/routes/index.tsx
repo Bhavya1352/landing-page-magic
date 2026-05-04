@@ -1,26 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Amara Signature Living — Premium 2 & 3 BHK in Keshavnagar, Pune" },
+      {
+        name: "description",
+        content:
+          "Amara Signature Living — premium 2 & 3 BHK residences in Keshavnagar, Pune. Crafted interiors, signature amenities, and timeless architecture.",
+      },
+      { property: "og:title", content: "Amara Signature Living" },
+      {
+        property: "og:description",
+        content: "Premium 2 & 3 BHK residences in Keshavnagar, Pune.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <iframe
+      src="/amara.html"
+      title="Amara Signature Living"
+      style={{
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
+        height: "100vh",
+        border: "none",
+        margin: 0,
+        padding: 0,
+      }}
+    />
+  );
 }
