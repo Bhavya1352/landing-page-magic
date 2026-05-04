@@ -29,14 +29,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Amara Signature Living — Premium 2 & 3 BHK in Keshavnagar, Pune" },
+      { name: "description", content: "Luxury residences in the heart of Keshavnagar, Pune. Premium 2 & 3 BHK homes with world-class amenities." },
+      { name: "author", content: "Amara Signature Living" },
+      { property: "og:title", content: "Amara Signature Living" },
+      { property: "og:description", content: "Luxury residences in the heart of Keshavnagar, Pune." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@AmaraLiving" },
     ],
     links: [
       {
