@@ -1,0 +1,8 @@
+[build]
+  command = "node build-static.cjs"
+  publish = "deploy"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
